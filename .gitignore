@@ -1,0 +1,12 @@
+#IDE CONFIG:
+.idea
+
+# PROJECT CONFIG:
+idwly
+/idontwannaloseyou/tmp
+
+**/__pycache__/
+
+tmp
+
+.env
