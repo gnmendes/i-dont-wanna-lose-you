@@ -26,7 +26,7 @@ class Download(object):
 
         output_location = self.__get_file_location(info=video_info)
         ydl_opts = {
-            'format': 'best',
+            'format': 'bestvideo+bestaudio/best',
             'outtmpl': output_location,
             'nooverwrites': True,
             'no_warnings': False,

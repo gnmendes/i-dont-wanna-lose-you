@@ -1,5 +1,7 @@
 version: "3.8"
+
 services:
+
   idwly:
     build: .
     command: flask run --host 0.0.0.0
@@ -8,5 +10,3 @@ services:
     ports:
       - "8080:5000"
     restart: always
-    volumes:
-      - .:/idontwannaloseyou

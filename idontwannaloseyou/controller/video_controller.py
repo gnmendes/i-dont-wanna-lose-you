@@ -6,9 +6,7 @@ from flask import request, jsonify
 import json
 import os
 
-
-RESOURCE_NAME = os.getenv('RESOURCE_NAME')
-BASE_FOLDER = os.getenv('BASE_FOLDER')
+RESOURCE_NAME = '/video'
 LOGGER = LoggerFactory.get_logger(__name__)
 MEGA = None
 
@@ -16,12 +14,8 @@ MEGA = None
 def build_response_object(data):
     return {
         'original_url': data.get('url'),
-        'folder_actor': data.get('folder')
+        'person_folder': data.get('folder')
     }
-
-
-def get_folder_name(folder_name):
-    return '%s/%s' % (BASE_FOLDER, folder_name)
 
 
 def save_in_cloud(file_location, folder_name, mega_client):
@@ -49,7 +43,7 @@ def download_and_store():
                 download_client = Download()
                 metadata = download_client.download(url=data.get('url'))
                 response_data['metadata'] = metadata
-                folder_name = get_folder_name(data.get("folder"))
+                folder_name = data.get("folder")
                 save_in_cloud(file_location=metadata.get('file_location'),
                               folder_name=folder_name,
                               mega_client=MEGA)
@@ -64,15 +58,17 @@ def download_and_store():
                 response.append(response_data)
 
         return jsonify(response), 200
-    return jsonify({'erro': 'payload submetido não atende'}), 400
+    return jsonify({'erro': 'Payload submetido é inválido'}), 400
 
 
 @app.route(RESOURCE_NAME + '/previously-downloaded', methods=[str(Verbs.POST)])
 def store_previously_download_video():
     if payload := json.loads(request.get_data()):
-        folder = payload.get('folder')
         path = payload.get('path')
-        folder_name = get_folder_name(folder)
+        # TODO: ter uma validacao em que ele verifica se existe mais de um nível na string (/), do contrário retorna
+        #  uma pasta base
+
+        folder_name = payload.get('folder')
         save_in_cloud(file_location=path, folder_name=folder_name,
                       mega_client=MEGA)
         LOGGER.debug(
@@ -82,6 +78,6 @@ def store_previously_download_video():
             {
                 "message": "Upload do arquivo presente no caminho %s finalizado!" % path,
                 "cloud_path": folder_name
-             }
+            }
         ), 200
     return 'Payload não submetido', 400

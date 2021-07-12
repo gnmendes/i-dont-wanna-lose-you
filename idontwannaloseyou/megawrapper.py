@@ -1,4 +1,7 @@
+from idontwannaloseyou.logger_utils import LoggerFactory
 from mega import Mega
+
+LOGGER = LoggerFactory.get_logger(__name__)
 
 
 class MegaWrapper:
@@ -17,10 +20,10 @@ class MegaWrapper:
     def create_folder(self, folder_name, root_folder=None):
         if root_folder:
             folder = self._logged_usr.create_folder(folder_name, root_folder)
-            print(f'pasta criada {folder} (subpasta de {root_folder})')
+            LOGGER.debug(f'pasta criada {folder} (subpasta de {root_folder})')
         else:
             folder = self._logged_usr.create_folder(folder_name)
-            print(f'pasta criada {folder}')
+            LOGGER.debug(f'pasta criada {folder}')
         return folder
 
     def _folder_exists(self, folder_name):
