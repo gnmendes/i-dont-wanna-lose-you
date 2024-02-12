@@ -22,7 +22,7 @@ class _Config:
                 drivername="postgresql",
                 database="contentdb",
                 username="root",
-                host="localhost",
+                host="host.docker.internal",
                 password="1234",
                 port=5432
             )
