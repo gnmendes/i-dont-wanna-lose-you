@@ -1,6 +1,8 @@
 TODO:
 
-- [ ] Learn how to use Docker and all the stuff that come together
-- [ ] Improve docker-compose file
+- [x] Improve docker-compose file
 - [ ] Write unittest for the application
-- [ ] Improve the code and make it cleaner
+- [x] Improve the code and make it cleaner
+- [x] Criar configurações de load balancer para o nginx e adicionar um container
+- [x] Refatorar toda a parte de download
+- [x] Adicionar banco de dados postgres

@@ -1,4 +1,4 @@
-from idontwannaloseyou.logger_utils import LoggerFactory
+from logger_utils import LoggerFactory
 from mega import Mega
 
 LOGGER = LoggerFactory.get_logger(__name__)

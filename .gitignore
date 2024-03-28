@@ -9,4 +9,5 @@ idwly
 
 tmp
 
-.env
+*?env*
+*.drawio
